@@ -38,8 +38,8 @@ import java.util.EnumMap;
 import java.util.Objects;
 
 public class HealthRenderUtils {
-    public static final ResourceLocation SHOW_WOUNDS_LOCATION = new ResourceLocation(FirstAid.MODID, "textures/gui/show_wounds.png");
-    public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+    public static final ResourceLocation SHOW_WOUNDS_LOCATION = new ResourceLocation(FirstAid.MODID, "textures/gui/health_gui.png");
+    public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FirstAid.MODID,"textures/gui/icons.png");
     public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("0.0");
     private static final Object2IntOpenHashMap<EnumPlayerPart> prevHealth = new Object2IntOpenHashMap<>();
     private static final EnumMap<EnumPlayerPart, FlashStateManager> flashStates = new EnumMap<>(EnumPlayerPart.class);

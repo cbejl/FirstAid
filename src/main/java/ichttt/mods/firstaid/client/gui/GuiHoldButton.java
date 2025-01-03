@@ -18,10 +18,15 @@
 
 package ichttt.mods.firstaid.client.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import ichttt.mods.firstaid.client.util.HealthRenderUtils;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 
 public class GuiHoldButton extends AbstractButton {
     public final int id;
@@ -101,5 +106,28 @@ public class GuiHoldButton extends AbstractButton {
     @Override
     protected void updateWidgetNarration(NarrationElementOutput pNarrationElementOutput) {
 
+    }
+
+    @Override
+    protected void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        Minecraft minecraft = Minecraft.getInstance();
+        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+        pGuiGraphics.blitNineSliced(HealthRenderUtils.SHOW_WOUNDS_LOCATION, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 16, 2, 61, 16, 195, this.getTextureY());
+        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+        int i = getFGColor();
+        this.renderString(pGuiGraphics, minecraft.font, i | Mth.ceil(this.alpha * 255.0F) << 24);
+    }
+
+    private int getTextureY() {
+        int i = 1;
+        if (!this.active) {
+            i = 0;
+        } else if (this.isHoveredOrFocused()) {
+            i = 2;
+        }
+
+        return 208 + i * 16;
     }
 }
