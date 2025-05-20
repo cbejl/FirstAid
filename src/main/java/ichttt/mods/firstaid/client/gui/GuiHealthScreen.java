@@ -85,6 +85,10 @@ public class GuiHealthScreen extends Screen {
     private AbstractButton head, leftArm, leftLeg, leftFoot, body, rightArm, rightLeg, rightFoot;
     private InteractionHand activeHand;
 
+    public static ResourceLocation getGuiIconsLocation() {
+        return new ResourceLocation(FirstAid.MODID,"textures/gui/icons.png");
+    }
+
     public GuiHealthScreen(AbstractPlayerDamageModel damageModel) {
         super(Component.translatable("firstaid.gui.healthscreen"));
         this.damageModel = damageModel;
