@@ -51,12 +51,24 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GuiHealthScreen extends Screen {
-    public static final int xSize = 344;
-    public static final int ySize = 148;
+
+    public static int getXSize(){
+        return 344;//336;
+    }
+
+    public static int getYSize(){
+        return  148;//159;
+    }
     public static final int buttonWidth = 80;
-    public static final ItemStack BED_ITEMSTACK = new ItemStack(Items.RED_BED);
+
+    public static ItemStack getBedItemstack() {
+        return new ItemStack(Items.RED_BED);
+    }
     private static final DecimalFormat FORMAT = new DecimalFormat("##.#");
-    private static final int xHeartsOffset = 22;
+
+    public static int getxHeartsOffset() {
+        return 22;
+    }
 
     public static GuiHealthScreen INSTANCE;
     public static boolean isOpen = false;
@@ -95,8 +107,8 @@ public class GuiHealthScreen extends Screen {
     @Override
     public void init() {
         isOpen = true;
-        this.guiLeft = (this.width - xSize) / 2;
-        this.guiTop = (this.height - ySize) / 2;
+        this.guiLeft = (this.width - getXSize()) / 2;
+        this.guiTop = (this.height - getYSize()) / 2;
 
         head = new GuiHoldButton(1, this.guiLeft + 10, this.guiTop + 14, buttonWidth, 16, Component.translatable("firstaid.gui.head"), false);
         addRenderableWidget(head);
@@ -166,12 +178,12 @@ public class GuiHealthScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         //Setup background
         this.renderBackground(guiGraphics);
-        guiGraphics.fillGradient(this.guiLeft, this.guiTop, this.guiLeft + xSize, this.guiTop + ySize, -16777216, -16777216);
-        guiGraphics.blit(HealthRenderUtils.SHOW_WOUNDS_LOCATION, this.guiLeft, this.guiTop, 0, 0, 256, 148);
-        guiGraphics.blit(HealthRenderUtils.SHOW_WOUNDS_LOCATION, this.guiLeft + 256, this.guiTop, 0, ySize, 88, 108);
-        guiGraphics.blit(HealthRenderUtils.SHOW_WOUNDS_LOCATION, this.guiLeft + 256, this.guiTop + 108, 88, ySize, 88, 40);
+        //guiGraphics.fillGradient(this.guiLeft, this.guiTop, this.guiLeft + xSize, this.guiTop + ySize, -16777216, -16777216); //why
+        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), this.guiLeft, this.guiTop, 0, 0, 256, getYSize());
+        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), this.guiLeft + 256, this.guiTop, 0, getYSize(), getXSize() - 256/*88*/, 256 - getYSize());
+        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), this.guiLeft + 256, this.guiTop + 256 - getYSize(), getXSize() - 256/*88*/, getYSize(), getXSize() - 256, getYSize() + getYSize() - 256);
         //Player
-        int entityLookX = this.guiLeft + (xSize / 2) - mouseX;
+        int entityLookX = this.guiLeft + (getXSize() / 2) - mouseX;
         int entityLookY = this.guiTop + 20 - mouseY;
         if (EventCalendar.isGuiFun()) {
             if (EventCalendar.isHalloween()) {
@@ -196,9 +208,9 @@ public class GuiHealthScreen extends Screen {
         //Text info
         int morphineTicks = damageModel.getMorphineTicks();
         if (morphineTicks > 0)
-            guiGraphics.drawCenteredString(this.minecraft.font, I18n.get("firstaid.gui.morphine_left", StringUtil.formatTickDuration(morphineTicks)), this.guiLeft + (xSize / 2), this.guiTop + ySize - (this.activeHand == null ? 21 : 29), 0xFFFFFF);
+            guiGraphics.drawCenteredString(this.minecraft.font, I18n.get("firstaid.gui.morphine_left", StringUtil.formatTickDuration(morphineTicks)), this.guiLeft + (getXSize() / 2), this.guiTop + getYSize() - (this.activeHand == null ? 21 : 29), 0xFFFFFF);
         if (this.activeHand != null)
-            guiGraphics.drawCenteredString(this.minecraft.font, I18n.get("firstaid.gui.apply_hint"), this.guiLeft + (xSize / 2), this.guiTop + ySize - (morphineTicks == 0 ? 21 : 11), 0xFFFFFF);
+            guiGraphics.drawCenteredString(this.minecraft.font, I18n.get("firstaid.gui.apply_hint"), this.guiLeft + (getXSize() / 2), this.guiTop + getYSize() - (morphineTicks == 0 ? 21 : 11), 0xFFFFFF);
 
         //Health
         drawHealth(guiGraphics, damageModel.HEAD, false, 18);
@@ -225,12 +237,12 @@ public class GuiHealthScreen extends Screen {
         //Sleep info setup
         double sleepHealing = FirstAidConfig.SERVER.sleepHealPercentage.get();
         int bedX = guiLeft + 8;
-        int bedY = (guiTop + ySize) - 28;
+        int bedY = (guiTop + getYSize()) - 28;
 
         //Sleep info icon
         PoseStack modelViewStack = RenderSystem.getModelViewStack();
         modelViewStack.pushPose();
-        guiGraphics.renderItem(BED_ITEMSTACK, bedX, bedY);
+        guiGraphics.renderItem(getBedItemstack(), bedX, bedY);
         modelViewStack.popPose();
 
         //Sleep info tooltip
@@ -253,16 +265,16 @@ public class GuiHealthScreen extends Screen {
     public void drawHealth(GuiGraphics guiGraphics, AbstractDamageablePart damageablePart, boolean right, int yOffset) {
         PoseStack stack = guiGraphics.pose();
         stack.pushPose();
-        int xTranslation = guiLeft + (right ? getRightOffset(damageablePart) : 70 + xHeartsOffset);
+        int xTranslation = guiLeft + (right ? getRightOffset(damageablePart) : 70 + getxHeartsOffset());
         HealthRenderUtils.drawHealth(guiGraphics, this.minecraft.font, damageablePart, xTranslation, guiTop + yOffset, true);
         stack.popPose();
     }
 
     private static int getRightOffset(AbstractDamageablePart damageablePart) {
         if (HealthRenderUtils.drawAsString(damageablePart, true)) return 276 - 40
-                - xHeartsOffset;
+                - getxHeartsOffset();
         return 276 - Math.min(40, HealthRenderUtils.getMaxHearts(damageablePart.getMaxHealth()) * 9 + HealthRenderUtils.getMaxHearts(damageablePart.getAbsorption()) * 9 + 2)
-                - xHeartsOffset;
+                - getxHeartsOffset();
     }
 
     @Override
@@ -290,6 +302,7 @@ public class GuiHealthScreen extends Screen {
     }
 
     protected void holdButtonMouseCallback(GuiGraphics guiGraphics) {
+
         for (GuiHoldButton button : this.holdButtons) {
             int timeLeft = button.getTimeLeft();
             if (timeLeft == 0) {
@@ -308,10 +321,13 @@ public class GuiHealthScreen extends Screen {
             } else if (timeLeft != -1) {
                 float timeInSecs = (timeLeft / 1000F);
                 if (timeInSecs < 0F) timeInSecs = 0F;
-                guiGraphics.blit(HealthRenderUtils.SHOW_WOUNDS_LOCATION, button.getX() + (button.isRightSide ? 56 + 27 : -25), button.getY() - 2, button.isRightSide ? 2 : 0, 169, 22, 24);
+                RenderSystem.enableBlend();
+                guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), button.getX() + (button.isRightSide ? 56 + 27 : -25), button.getY() - 2, button.isRightSide ? 2 : 0, 169, 22, 24);
+                RenderSystem.disableBlend();
                 guiGraphics.drawString(font, HealthRenderUtils.TEXT_FORMAT.format(timeInSecs), button.getX() + (button.isRightSide ? 60 + 27 : -20), button.getY() + 6, 0xFFFFFF);
             }
         }
+
     }
 
     @Override
