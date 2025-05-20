@@ -24,6 +24,7 @@ import ichttt.mods.firstaid.FirstAidConfig;
 import ichttt.mods.firstaid.api.damagesystem.AbstractDamageablePart;
 import ichttt.mods.firstaid.api.enums.EnumPlayerPart;
 import ichttt.mods.firstaid.client.gui.FlashStateManager;
+import ichttt.mods.firstaid.client.gui.GuiHealthScreen;
 import ichttt.mods.firstaid.common.EventHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.Util;
@@ -38,8 +39,7 @@ import java.util.EnumMap;
 import java.util.Objects;
 
 public class HealthRenderUtils {
-    public static final ResourceLocation SHOW_WOUNDS_LOCATION = new ResourceLocation(FirstAid.MODID, "textures/gui/health_gui.png");
-    public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FirstAid.MODID,"textures/gui/icons.png");
+
     public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("0.0");
     private static final Object2IntOpenHashMap<EnumPlayerPart> prevHealth = new Object2IntOpenHashMap<>();
     private static final EnumMap<EnumPlayerPart, FlashStateManager> flashStates = new EnumMap<>(EnumPlayerPart.class);
@@ -223,7 +223,7 @@ public class HealthRenderUtils {
         if (toDraw < 0) throw new IllegalArgumentException("Cannot draw negative amount of icons " + toDraw);
         for (int i = 0; i < toDraw; i++) {
             boolean renderHalf = lastOneHalf && i + 1 == toDraw;
-            guiGraphics.blit(GUI_ICONS_LOCATION, (int) (9F * i), (i == regen ? -2 : 0) - lowOffsets[i], renderHalf ? halfTextureX : textureX, textureY, 9, 9);
+            guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), (int) (9F * i), (i == regen ? -2 : 0) - lowOffsets[i], renderHalf ? halfTextureX : textureX, textureY, 9, 9);
         }
     }
 }

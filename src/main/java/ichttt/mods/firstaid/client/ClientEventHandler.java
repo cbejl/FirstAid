@@ -82,7 +82,7 @@ public class ClientEventHandler {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null || mc.player == null || mc.player.connection == null || mc.isPaused()) return;
         if (EventCalendar.isGuiFun()) {
-            GuiHealthScreen.BED_ITEMSTACK.setDamageValue(id);
+            GuiHealthScreen.getBedItemstack().setDamageValue(id);
             if (mc.level != null && mc.level.getGameTime() % 3 == 0) id++;
             if (id > 15) id = 0;
             GuiHealthScreen.tickFun();

@@ -24,7 +24,6 @@ import ichttt.mods.firstaid.FirstAidConfig;
 import ichttt.mods.firstaid.api.damagesystem.AbstractPlayerDamageModel;
 import ichttt.mods.firstaid.client.ClientHooks;
 import ichttt.mods.firstaid.client.gui.GuiHealthScreen;
-import ichttt.mods.firstaid.client.util.HealthRenderUtils;
 import ichttt.mods.firstaid.common.damagesystem.PlayerDamageModel;
 import ichttt.mods.firstaid.common.network.MessageClientRequest;
 import ichttt.mods.firstaid.common.util.CommonUtils;
@@ -81,7 +80,7 @@ public class GuiTutorial extends Screen {
                 if (damageModel == null) return;
                 minecraft.setScreen(new GuiHealthScreen(damageModel));
             }
-        }).bounds(parent.guiLeft + GuiHealthScreen.xSize - 34, guiTop + 4, 32, 20).build());
+        }).bounds(parent.guiLeft + GuiHealthScreen.getXSize() - 34, guiTop + 4, 32, 20).build());
         for (AbstractWidget button : parent.getButtons()) {
             if (button == parent.cancelButton) {
                 addRenderableWidget(Button.builder(button.getMessage(), ignored -> {
@@ -105,11 +104,11 @@ public class GuiTutorial extends Screen {
         stack.pushPose();
         parent.render(guiGraphics, mouseX, mouseY, partialTicks);
         stack.popPose();
-        guiGraphics.blit(HealthRenderUtils.SHOW_WOUNDS_LOCATION, parent.guiLeft, guiTop, 0, 139, GuiHealthScreen.xSize, 28);
+        guiGraphics.blit(GuiHealthScreen.getShowWoundsLocation(), parent.guiLeft, guiTop, 0, 139, GuiHealthScreen.getXSize(), 28);
         stack.pushPose();
         this.action.draw(guiGraphics);
         stack.popPose();
-        guiGraphics.drawCenteredString(minecraft.font, I18n.get("firstaid.tutorial.notice"), parent.guiLeft + (GuiHealthScreen.xSize / 2), parent.guiTop + 128, 0xFFFFFF);
+        guiGraphics.drawCenteredString(minecraft.font, I18n.get("firstaid.tutorial.notice"), parent.guiLeft + (GuiHealthScreen.getXSize() / 2), parent.guiTop + 128, 0xFFFFFF);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 

@@ -113,7 +113,7 @@ public class HUDHandler implements ResourceManagerReloadListener, IGuiOverlay {
         if (visibleTicks != -1 && ticker < 0)
             return;
 
-        RenderSystem.setShaderTexture(0, HealthRenderUtils.GUI_ICONS_LOCATION);
+        RenderSystem.setShaderTexture(0, GuiHealthScreen.getGuiIconsLocation());
         int xOffset = FirstAidConfig.CLIENT.xOffset.get();
         int yOffset = FirstAidConfig.CLIENT.yOffset.get();
         boolean playerModel = overlayMode.isPlayerModel();

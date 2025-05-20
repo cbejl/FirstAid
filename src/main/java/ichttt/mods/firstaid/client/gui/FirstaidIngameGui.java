@@ -123,32 +123,32 @@ public class FirstaidIngameGui {
             if (health <= 4) y += gui.random.nextInt(2);
             if (i == regen) y -= 2;
 
-            guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, BACKGROUND, TOP, 9, 9);
+            guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, BACKGROUND, TOP, 9, 9);
 
             if (highlight)
             {
                 if (thisHalfCritical) {
                     stack.pushPose();
                     stack.translate(0.0F, 0.0F, 1000.0F);
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, MARGIN + 63, 9 * 5, 9, 9);
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, MARGIN + 63, 9 * 5, 9, 9);
                     stack.popPose();
                 }
                 if (i * 2 + 1 < healthLast)
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x + (thisHalfCritical ? 5 : 0), y, MARGIN + 54 + (thisHalfCritical ? 5 : 0), TOP, 9 - (thisHalfCritical ? 5 : 0), 9); //6
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x + (thisHalfCritical ? 5 : 0), y, MARGIN + 54 + (thisHalfCritical ? 5 : 0), TOP, 9 - (thisHalfCritical ? 5 : 0), 9); //6
                 else if (i * 2 + 1 == healthLast)
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, MARGIN + 63, TOP, 9, 9); //7
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, MARGIN + 63, TOP, 9, 9); //7
             }
 
             if (absorbRemaining > 0.0F)
             {
                 if (absorbRemaining == absorb && absorb % 2.0F == 1.0F)
                 {
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, MARGIN + 153, TOP, 9, 9); //17
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, MARGIN + 153, TOP, 9, 9); //17
                     absorbRemaining -= 1.0F;
                 }
                 else
                 {
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, MARGIN + 144, TOP, 9, 9); //16
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, MARGIN + 144, TOP, 9, 9); //16
                     absorbRemaining -= 2.0F;
                 }
             }
@@ -157,13 +157,13 @@ public class FirstaidIngameGui {
                 if (thisHalfCritical) {
                     stack.pushPose();
                     stack.translate(0.0F, 0.0F, 10.0F);
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, MARGIN + 45, 9 * 5, 9, 9);
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, MARGIN + 45, 9 * 5, 9, 9);
                     stack.popPose();
                 }
                 if (i * 2 + 1 < health)
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x + (thisHalfCritical ? 5 : 0), y, MARGIN + 36 + (thisHalfCritical ? 5 : 0), TOP, 9 - (thisHalfCritical ? 5 : 0), 9); //4
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x + (thisHalfCritical ? 5 : 0), y, MARGIN + 36 + (thisHalfCritical ? 5 : 0), TOP, 9 - (thisHalfCritical ? 5 : 0), 9); //4
                 else if (i * 2 + 1 == health && !thisHalfCritical)
-                    guiGraphics.blit(HealthRenderUtils.GUI_ICONS_LOCATION, x, y, MARGIN + 45, TOP, 9, 9); //5
+                    guiGraphics.blit(GuiHealthScreen.getGuiIconsLocation(), x, y, MARGIN + 45, TOP, 9, 9); //5
             }
         }
 
