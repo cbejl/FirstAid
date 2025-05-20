@@ -24,7 +24,6 @@ import ichttt.mods.firstaid.FirstAidConfig;
 import ichttt.mods.firstaid.api.damagesystem.AbstractPlayerDamageModel;
 import ichttt.mods.firstaid.client.ClientHooks;
 import ichttt.mods.firstaid.client.gui.GuiHealthScreen;
-import ichttt.mods.firstaid.client.util.HealthRenderUtils;
 import ichttt.mods.firstaid.common.damagesystem.PlayerDamageModel;
 import ichttt.mods.firstaid.common.network.MessageClientRequest;
 import ichttt.mods.firstaid.common.util.CommonUtils;
@@ -105,7 +104,7 @@ public class GuiTutorial extends Screen {
         stack.pushPose();
         parent.render(guiGraphics, mouseX, mouseY, partialTicks);
         stack.popPose();
-        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), parent.guiLeft, guiTop, 0, 139, GuiHealthScreen.getXSize(), 28);
+        guiGraphics.blit(GuiHealthScreen.getShowWoundsLocation(), parent.guiLeft, guiTop, 0, 139, GuiHealthScreen.getXSize(), 28);
         stack.pushPose();
         this.action.draw(guiGraphics);
         stack.popPose();

@@ -40,6 +40,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -102,6 +103,10 @@ public class GuiHealthScreen extends Screen {
         if (funTicks > 500) {
             funTicks = (int) (Math.random() * 100);
         }
+    }
+
+    public static ResourceLocation getShowWoundsLocation() {
+        return new ResourceLocation(FirstAid.MODID, "textures/gui/health_gui.png");
     }
 
     @Override
@@ -179,9 +184,9 @@ public class GuiHealthScreen extends Screen {
         //Setup background
         this.renderBackground(guiGraphics);
         //guiGraphics.fillGradient(this.guiLeft, this.guiTop, this.guiLeft + xSize, this.guiTop + ySize, -16777216, -16777216); //why
-        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), this.guiLeft, this.guiTop, 0, 0, 256, getYSize());
-        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), this.guiLeft + 256, this.guiTop, 0, getYSize(), getXSize() - 256/*88*/, 256 - getYSize());
-        guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), this.guiLeft + 256, this.guiTop + 256 - getYSize(), getXSize() - 256/*88*/, getYSize(), getXSize() - 256, getYSize() + getYSize() - 256);
+        guiGraphics.blit(getShowWoundsLocation(), this.guiLeft, this.guiTop, 0, 0, 256, getYSize());
+        guiGraphics.blit(getShowWoundsLocation(), this.guiLeft + 256, this.guiTop, 0, getYSize(), getXSize() - 256/*88*/, 256 - getYSize());
+        guiGraphics.blit(getShowWoundsLocation(), this.guiLeft + 256, this.guiTop + 256 - getYSize(), getXSize() - 256/*88*/, getYSize(), getXSize() - 256, getYSize() + getYSize() - 256);
         //Player
         int entityLookX = this.guiLeft + (getXSize() / 2) - mouseX;
         int entityLookY = this.guiTop + 20 - mouseY;
@@ -322,7 +327,7 @@ public class GuiHealthScreen extends Screen {
                 float timeInSecs = (timeLeft / 1000F);
                 if (timeInSecs < 0F) timeInSecs = 0F;
                 RenderSystem.enableBlend();
-                guiGraphics.blit(HealthRenderUtils.getShowWoundsLocation(), button.getX() + (button.isRightSide ? 56 + 27 : -25), button.getY() - 2, button.isRightSide ? 2 : 0, 169, 22, 24);
+                guiGraphics.blit(getShowWoundsLocation(), button.getX() + (button.isRightSide ? 56 + 27 : -25), button.getY() - 2, button.isRightSide ? 2 : 0, 169, 22, 24);
                 RenderSystem.disableBlend();
                 guiGraphics.drawString(font, HealthRenderUtils.TEXT_FORMAT.format(timeInSecs), button.getX() + (button.isRightSide ? 60 + 27 : -20), button.getY() + 6, 0xFFFFFF);
             }
