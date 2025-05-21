@@ -141,7 +141,7 @@ public class HealthRenderUtils {
             int absorption2 = absorption - maxExtraHealth * 2;
             absorption -= absorption2;
 
-            stack.translate(0F, 5F, 0F);
+            stack.translate(4F, 5F, 0F);
             stack.pushPose();
             renderLine(stack, regen, low, yTexture, maxHealth2, maxExtraHealth2, current2, absorption2, guiGraphics, highlight);
             regen -= (maxHealth2 + maxExtraHealth);

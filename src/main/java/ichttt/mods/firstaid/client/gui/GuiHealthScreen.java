@@ -60,6 +60,21 @@ public class GuiHealthScreen extends Screen {
     public static int getYSize(){
         return  148;//159;
     }
+
+    public static int getButtonsY(){
+        return  14;
+    }
+    public static int getButtonsX(){
+        return  10;
+    }
+
+    public static int getBedY(){
+        return  28;
+    }
+    public static int getBedX(){
+        return  8;
+    }
+
     public static final int buttonWidth = 80;
 
     public static ItemStack getBedItemstack() {
@@ -68,7 +83,7 @@ public class GuiHealthScreen extends Screen {
     private static final DecimalFormat FORMAT = new DecimalFormat("##.#");
 
     public static int getxHeartsOffset() {
-        return 22;
+        return 2;
     }
 
     public static GuiHealthScreen INSTANCE;
@@ -113,30 +128,34 @@ public class GuiHealthScreen extends Screen {
         return new ResourceLocation(FirstAid.MODID, "textures/gui/health_gui.png");
     }
 
+    public static ResourceLocation getButtonsLocation() {
+        return new ResourceLocation(FirstAid.MODID, "textures/gui/buttons.png");
+    }
+
     @Override
     public void init() {
         isOpen = true;
         this.guiLeft = (this.width - getXSize()) / 2;
         this.guiTop = (this.height - getYSize()) / 2;
 
-        head = new GuiHoldButton(1, this.guiLeft + 10, this.guiTop + 14, buttonWidth, 16, Component.translatable("firstaid.gui.head"), false);
+        head = new GuiHoldButton(1, this.guiLeft + getButtonsX(), this.guiTop + getButtonsY(), buttonWidth, 16, Component.translatable("firstaid.gui.head"), false);
         addRenderableWidget(head);
 
-        leftArm = new GuiHoldButton(2, this.guiLeft + 10, this.guiTop + 40, buttonWidth, 16, Component.translatable("firstaid.gui.left_arm"), false);
+        leftArm = new GuiHoldButton(2, this.guiLeft + getButtonsX(), this.guiTop + getButtonsY() + 26, buttonWidth, 16, Component.translatable("firstaid.gui.left_arm"), false);
         addRenderableWidget(leftArm);
-        leftLeg = new GuiHoldButton(3, this.guiLeft + 10, this.guiTop + 66, buttonWidth, 16, Component.translatable("firstaid.gui.left_leg"), false);
+        leftLeg = new GuiHoldButton(3, this.guiLeft + getButtonsX(), this.guiTop + getButtonsY() + 52, buttonWidth, 16, Component.translatable("firstaid.gui.left_leg"), false);
         addRenderableWidget(leftLeg);
-        leftFoot = new GuiHoldButton(4, this.guiLeft + 10, this.guiTop + 92, buttonWidth, 16, Component.translatable("firstaid.gui.left_foot"), false);
+        leftFoot = new GuiHoldButton(4, this.guiLeft + getButtonsX(), this.guiTop + getButtonsY() + 78, buttonWidth, 16, Component.translatable("firstaid.gui.left_foot"), false);
         addRenderableWidget(leftFoot);
 
-        body = new GuiHoldButton(5, this.guiLeft + 334 - buttonWidth, this.guiTop + 14, buttonWidth, 16, Component.translatable("firstaid.gui.body"), true);
+        body = new GuiHoldButton(5, this.guiLeft + getXSize() - buttonWidth - getButtonsX(), this.guiTop + getButtonsY(), buttonWidth, 16, Component.translatable("firstaid.gui.body"), true);
         addRenderableWidget(body);
 
-        rightArm = new GuiHoldButton(6, this.guiLeft + 334 - buttonWidth, this.guiTop + 40, buttonWidth, 16, Component.translatable("firstaid.gui.right_arm"), true);
+        rightArm = new GuiHoldButton(6, this.guiLeft + getXSize() - buttonWidth - getButtonsX(), this.guiTop + getButtonsY() + 26, buttonWidth, 16, Component.translatable("firstaid.gui.right_arm"), true);
         addRenderableWidget(rightArm);
-        rightLeg = new GuiHoldButton(7, this.guiLeft + 334 - buttonWidth, this.guiTop + 66, buttonWidth, 16, Component.translatable("firstaid.gui.right_leg"), true);
+        rightLeg = new GuiHoldButton(7, this.guiLeft + getXSize() - buttonWidth - getButtonsX(), this.guiTop + getButtonsY() + 52, buttonWidth, 16, Component.translatable("firstaid.gui.right_leg"), true);
         addRenderableWidget(rightLeg);
-        rightFoot = new GuiHoldButton(8, this.guiLeft + 334 - buttonWidth, this.guiTop + 92, buttonWidth, 16, Component.translatable("firstaid.gui.right_foot"), true);
+        rightFoot = new GuiHoldButton(8, this.guiLeft + getXSize() - buttonWidth - getButtonsX(), this.guiTop + getButtonsY() + 78, buttonWidth, 16, Component.translatable("firstaid.gui.right_foot"), true);
         addRenderableWidget(rightFoot);
 
         if (disableButtons) {
@@ -222,14 +241,14 @@ public class GuiHealthScreen extends Screen {
             guiGraphics.drawCenteredString(this.minecraft.font, I18n.get("firstaid.gui.apply_hint"), this.guiLeft + (getXSize() / 2), this.guiTop + getYSize() - (morphineTicks == 0 ? 21 : 11), 0xFFFFFF);
 
         //Health
-        drawHealth(guiGraphics, damageModel.HEAD, false, 18);
-        drawHealth(guiGraphics, damageModel.LEFT_ARM, false, 44);
-        drawHealth(guiGraphics, damageModel.LEFT_LEG, false, 70);
-        drawHealth(guiGraphics, damageModel.LEFT_FOOT, false, 96);
-        drawHealth(guiGraphics, damageModel.BODY, true, 18);
-        drawHealth(guiGraphics, damageModel.RIGHT_ARM, true, 44);
-        drawHealth(guiGraphics, damageModel.RIGHT_LEG, true, 70);
-        drawHealth(guiGraphics, damageModel.RIGHT_FOOT, true, 96);
+        drawHealth(guiGraphics, damageModel.HEAD, false, getButtonsY() + 4);
+        drawHealth(guiGraphics, damageModel.LEFT_ARM, false, getButtonsY() + 30);
+        drawHealth(guiGraphics, damageModel.LEFT_LEG, false, getButtonsY() + 56);
+        drawHealth(guiGraphics, damageModel.LEFT_FOOT, false, getButtonsY() + 82);
+        drawHealth(guiGraphics, damageModel.BODY, true, getButtonsY() + 4);
+        drawHealth(guiGraphics, damageModel.RIGHT_ARM, true, getButtonsY() + 30);
+        drawHealth(guiGraphics, damageModel.RIGHT_LEG, true, getButtonsY() + 56);
+        drawHealth(guiGraphics, damageModel.RIGHT_FOOT, true, getButtonsY() + 82);
 
         //Tooltip
         guiGraphics.pose().pushPose();
@@ -245,8 +264,8 @@ public class GuiHealthScreen extends Screen {
 
         //Sleep info setup
         double sleepHealing = FirstAidConfig.SERVER.sleepHealPercentage.get();
-        int bedX = guiLeft + 8;
-        int bedY = (guiTop + getYSize()) - 28;
+        int bedX = guiLeft + getBedX();
+        int bedY = (guiTop + getYSize()) - getBedY();
 
         //Sleep info icon
         PoseStack modelViewStack = RenderSystem.getModelViewStack();
@@ -274,15 +293,15 @@ public class GuiHealthScreen extends Screen {
     public void drawHealth(GuiGraphics guiGraphics, AbstractDamageablePart damageablePart, boolean right, int yOffset) {
         PoseStack stack = guiGraphics.pose();
         stack.pushPose();
-        int xTranslation = guiLeft + (right ? getRightOffset(damageablePart) : 70 + getxHeartsOffset());
+        int xTranslation = guiLeft + (right ? getRightOffset(damageablePart) : ((buttonWidth) + getButtonsX() + getxHeartsOffset()));
         HealthRenderUtils.drawHealth(guiGraphics, this.minecraft.font, damageablePart, xTranslation, guiTop + yOffset, true);
         stack.popPose();
     }
 
     private static int getRightOffset(AbstractDamageablePart damageablePart) {
-        if (HealthRenderUtils.drawAsString(damageablePart, true)) return 276 - 40
+        if (HealthRenderUtils.drawAsString(damageablePart, true)) return getXSize() - buttonWidth - 40 - getButtonsX()
                 - getxHeartsOffset();
-        return 276 - Math.min(40, HealthRenderUtils.getMaxHearts(damageablePart.getMaxHealth()) * 9 + HealthRenderUtils.getMaxHearts(damageablePart.getAbsorption()) * 9 + 2)
+        return getXSize() - buttonWidth - Math.min(40, HealthRenderUtils.getMaxHearts(damageablePart.getMaxHealth()) * 9 + HealthRenderUtils.getMaxHearts(damageablePart.getAbsorption()) * 9) - getButtonsX()
                 - getxHeartsOffset();
     }
 

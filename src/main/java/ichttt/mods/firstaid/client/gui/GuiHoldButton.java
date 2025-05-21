@@ -113,7 +113,7 @@ public class GuiHoldButton extends AbstractButton {
         pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
-        pGuiGraphics.blitNineSliced(GuiHealthScreen.getShowWoundsLocation(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), 16, 2, 61, 16, 195, this.getTextureY());
+        pGuiGraphics.blitNineSliced(GuiHealthScreen.getButtonsLocation(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), 16, 2, 61, 16, 195, this.getTextureY());
         pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         int i = getFGColor();
         this.renderString(pGuiGraphics, minecraft.font, i | Mth.ceil(this.alpha * 255.0F) << 24);
